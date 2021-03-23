@@ -5,6 +5,7 @@ import Hello from '../views/HelloWorld'
 import NaviBar from '../components/NaviBar'
 import Login from '../views/user/login'
 import Register from '../views/user/register'
+import App from '../App.vue'
 
 Vue.use(Router);
 
@@ -15,7 +16,7 @@ export default new Router({
             component: Context
         },
         {
-            path: '/hello',
+            path: '/',
             component: Hello
         },
         {
