@@ -2,7 +2,7 @@
   <div class="container">
     <el-container>
       <!-- 左留白 -->
-      <el-aside></el-aside>
+      <el-aside :style="{ width }"></el-aside>
       <el-container>
         <!-- header -->
         <el-header>
@@ -18,7 +18,7 @@
         </el-footer>
       </el-container>
       <!-- 右留白 -->
-      <el-aside></el-aside>
+      <el-aside :style="{ width }"></el-aside>
     </el-container>
   </div>
 </template>
@@ -34,9 +34,8 @@ export default {
 <style>
 .el-aside {
   background-color: #dadee2;
-    color: #333;
-    text-align: center;
-    line-height: 200px;
+  line-height: 200px;
+  width: 12%;
 }
 .el-main {
   height: 800px;
@@ -45,6 +44,4 @@ export default {
   height: 100px;
   background-color: rgb(70, 66, 66);
 }
-
-
 </style>
