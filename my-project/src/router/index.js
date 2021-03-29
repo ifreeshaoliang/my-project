@@ -6,6 +6,7 @@ import NaviBar from '../components/NaviBar'
 import Login from '../views/user/login'
 import Register from '../views/user/register'
 import App from '../App.vue'
+import Manage from '../views/manage'
 
 Vue.use(Router);
 
@@ -17,7 +18,7 @@ export default new Router({
         },
         {
             path: '/',
-            component: Hello
+            component: Manage
         },
         {
             path: '/navi',
@@ -30,6 +31,10 @@ export default new Router({
         {
             path:'/user/register',
             component: Register
+        },
+        {
+            path:'/manage',
+            component: Manage
         }
     ]
 })
