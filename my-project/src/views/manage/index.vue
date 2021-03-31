@@ -1,12 +1,7 @@
 <template>
   <BaseLayout>
-    <template v-slot:header>
-      <NaviBar></NaviBar>
-    </template>
     <template>
       主体内容
-    </template>
-    <template v-slot:footer>
     </template>
   </BaseLayout>
 

@@ -1,47 +1,55 @@
 <template>
   <div class="container">
     <el-container>
-      <!-- 左留白 -->
-      <el-aside :style="{ width }"></el-aside>
+      <!-- header -->
+      <el-header :style="{ width, height }">
+        <NavBar></NavBar>
+      </el-header>
       <el-container>
-        <!-- header -->
-        <el-header>
-          <slot name="header"></slot>
-        </el-header>
+        <!-- 左留白 -->
+        <el-aside :style="{ width }"></el-aside>
         <!-- main主体 -->
         <el-main>
           <slot></slot>
         </el-main>
-        <!-- footer -->
-        <el-footer>
-          <slot name="footer"></slot>
-        </el-footer>
+        <!-- 右留白 -->
+        <el-aside :style="{ width }"></el-aside>
       </el-container>
-      <!-- 右留白 -->
-      <el-aside :style="{ width }"></el-aside>
+      <!-- footer -->
+      <el-footer>
+        <Footer></Footer>
+      </el-footer>
     </el-container>
   </div>
 </template>
 
 <script>
+import NavBar from "../../components/NaviBar";
+import Footer from "../../components/Footer";
 export default {
   data() {
     return {};
+  },
+  components: {
+    NavBar,
+    Footer,
   },
 };
 </script>
 
 <style>
+.el-header {
+  margin-left: 12%;
+  width: 76%;
+}
 .el-aside {
-  background-color: #dadee2;
-  line-height: 200px;
   width: 12%;
 }
 .el-main {
   height: 800px;
 }
 .el-footer {
-  height: 100px;
-  background-color: rgb(70, 66, 66);
+  height: 200px;
+  background-color: #f7fbfd;
 }
 </style>
