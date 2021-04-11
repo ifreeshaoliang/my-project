@@ -1,7 +1,7 @@
 <template>
   <BaseLayout>
     <template>
-      管理页面
+       销售商页面
     </template>
   </BaseLayout>
 </template>

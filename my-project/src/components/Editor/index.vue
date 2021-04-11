@@ -1,51 +1,84 @@
 <template>
-  <div>
-    <div class="editor"></div>
+  <div class="edit_container">
+    <!-- 新增时输入 -->
+    <quill-editor
+      v-model="content"
+      ref="myQuillEditor"
+      :options="editorOption"
+      @blur="onEditorBlur($event)"
+      @focus="onEditorFocus($event)"
+      @change="onEditorChange($event)"
+    >
+    </quill-editor>
+    <button v-on:click="saveHtml">保存</button>
+    <!-- 从数据库读取展示 -->
+    <div class="ql-container ql-snow">
+      <div class="ql-editor">
+        <div v-html="content"></div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Quill from 'quill'
-import 'quill/dist/quill.snow.css'
+import { quillEditor } from "vue-quill-editor"; //调用编辑器
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+import "quill/dist/quill.bubble.css";
 export default {
-  name: 'editor',
-  props: {
-    value: Object
+  components: {
+    quillEditor,
   },
   data() {
     return {
-      quill:null,
-      options: {
-        theme: 'snow',
+      content: "",
+      str: "",
+      editorOption: {
+        placeholder: "",
         modules: {
-            toolbar: [
-              ['bold', 'italic', 'underline', 'strike'],
-              ['blockquote', 'code-block'],
-              [{ 'header': 1 }, { 'header': 2 }],
-              [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-              [{ 'script': 'sub' }, { 'script': 'super' }],
-              [{ 'indent': '-1' }, { 'indent': '+1' }],
-              [{ 'direction': 'rtl' }],
-              [{ 'size': ['small', false, 'large', 'huge'] }],
-              [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-              [{ 'color': [] }, { 'background': [] }],
-              [{ 'font': [] }],
-              [{ 'align': [] }],
-              ['clean'],
-              ['link', 'image', 'video']
-            ]
+          toolbar: {
+            container: [
+              [{ size: ["small", false, "large"] }],
+              [{ color: [] }, { background: [] }],
+              [{ font: [] }],
+              [{ align: [] }],
+              ["bold", "italic"],
+              [{ list: "ordered" }, { list: "bullet" }],
+              ["link", "image"],
+            ],
           },
-          placeholder: 'Insert text here ...'
-      }
-    }
+        },
+      },
+    };
+  },
+  methods: {
+    onEditorReady(editor) {
+      // 准备编辑器
+    },
+    onEditorBlur() {}, // 失去焦点事件
+    onEditorFocus() {}, // 获得焦点事件
+    onEditorChange() {}, // 内容改变事件
+    // 转码
+    escapeStringHTML(str) {
+      str = str.replace(/&lt;/g, "<");
+      str = str.replace(/&gt;/g, ">");
+      return str;
+    },
+    saveHtml() {
+      alert(this.content);
+    },
+  },
+  computed: {
+    editor() {
+      return this.$refs.myQuillEditor.quill;
+    },
   },
   mounted() {
-    let dom = this.$el.querySelector('.editor')
-    this.quill = new Quill(dom, this.options);
-    this.quill.setContents(this.value)
-    this.quill.on('text-change', () => {
-      this.$emit('input', this.quill.getContents())
-    });
-  }
-}
+    let content = ""; // 请求后台返回的内容字符串
+    this.str = this.escapeStringHTML(content);
+  },
+};
 </script>
+
+<style scoped>
+</style>

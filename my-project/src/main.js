@@ -13,13 +13,14 @@ import VueQuillEditor from 'vue-quill-editor'  //引入富文本编译器
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
-
 Vue.use(VueQuillEditor);
 
 Vue.use(ElementUI, { locale })
 Vue.prototype.axios = axios
 
 Vue.config.productionTip = false
+
+
 
 /* eslint-disable no-new */
 new Vue({

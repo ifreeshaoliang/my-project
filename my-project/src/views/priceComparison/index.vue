@@ -1,7 +1,8 @@
 <template>
   <BaseLayout>
     <template>
-      管理页面
+     比价页面
+
     </template>
   </BaseLayout>
 </template>

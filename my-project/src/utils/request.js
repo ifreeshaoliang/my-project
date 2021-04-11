@@ -86,11 +86,12 @@ service.interceptors.response.use(response => {
   } else {
     // 超时处理
     if (JSON.stringify(error).includes('timeout')) {
-      Message.error('服务器响应超时，请刷新当前页')
+      error.message = '服务器响应超时，请刷新当前页'
+    }else {
+      error.message = '连接服务器失败'
     }
-    error.message = '连接服务器失败'
   }
-
+  //message提示错误信息
   Message.error(error.message)
   /***** 处理结束 *****/
   //如果不需要错误处理，以上的处理过程都可省略

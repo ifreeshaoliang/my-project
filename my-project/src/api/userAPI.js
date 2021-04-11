@@ -10,7 +10,11 @@ export default {
     getUsersInfo(params) {
         return http.get(request, params);
     },
-    postLogin(params) {
-        return http.post(request, params);
-    }
+    login(params) {
+        return http.post(request+'login', params);
+    },
+    register(params) {
+        return http.post(request+'register', params);
+    },
+
 }

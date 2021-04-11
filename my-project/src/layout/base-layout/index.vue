@@ -1,21 +1,15 @@
 <template>
   <div class="container">
     <el-container>
-      <!-- header -->
-      <el-header :style="{ width, height }">
+      <!-- header头部 -->
+      <el-header>
         <NavBar></NavBar>
       </el-header>
-      <el-container>
-        <!-- 左留白 -->
-        <el-aside :style="{ width }"></el-aside>
-        <!-- main主体 -->
-        <el-main>
-          <slot></slot>
-        </el-main>
-        <!-- 右留白 -->
-        <el-aside :style="{ width }"></el-aside>
-      </el-container>
-      <!-- footer -->
+      <!-- 主体 -->
+      <el-main v-bind:style="{minHeight: Height + 'px'}">
+        <slot></slot>
+      </el-main>
+      <!-- footer页脚 -->
       <el-footer>
         <Footer></Footer>
       </el-footer>
@@ -27,13 +21,22 @@
 import NavBar from "../../components/NaviBar";
 import Footer from "../../components/Footer";
 export default {
-  data() {
-    return {};
-  },
   components: {
     NavBar,
     Footer,
   },
+  data() {
+    return {
+      minHeight:0,
+      Height: 0,
+    };
+  },
+  mounted(){
+    //动态设置内容高度 让footer始终居底   header+footer的高度是128
+    this.Height = document.documentElement.clientHeight - 128;  
+　　//监听浏览器窗口变化　
+    window.onresize = ()=> {this.Height = document.documentElement.clientHeight -100}
+  }
 };
 </script>
 
@@ -42,14 +45,14 @@ export default {
   margin-left: 12%;
   width: 76%;
 }
-.el-aside {
-  width: 12%;
-}
 .el-main {
-  height: 800px;
+  margin-left: 12%;
+  width: 76%;
+  height: 100%;
 }
 .el-footer {
   height: 200px;
   background-color: #f7fbfd;
+  flex: 0;
 }
 </style>
