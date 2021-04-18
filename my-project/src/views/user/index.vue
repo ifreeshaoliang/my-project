@@ -1,5 +1,5 @@
 <template>
-  <BaseLayout>
+  <BaseLayout v-bind:inputIndex="navIndex">
     <template>
       <div>
         <el-card class="box-card">
@@ -22,7 +22,9 @@ export default {
     BaseLayout,
   },
   data() {
-    return {};
+    return {
+      navIndex:'4'
+    };
   },
 };
 </script>

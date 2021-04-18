@@ -3,7 +3,7 @@
     <el-container>
       <!-- header头部 -->
       <el-header>
-        <NavBar></NavBar>
+        <NavBar v-bind:activeIndex="inputIndex"></NavBar>
       </el-header>
       <!-- 主体 -->
       <el-main v-bind:style="{minHeight: Height + 'px'}">
@@ -24,6 +24,12 @@ export default {
   components: {
     NavBar,
     Footer,
+  },
+  props: {
+    inputIndex: {
+       type: String,
+       default: "1",
+    }
   },
   data() {
     return {

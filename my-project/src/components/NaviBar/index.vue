@@ -10,29 +10,44 @@
     </el-menu-item>
 
     <!-- 未登录状态 -->
-    <el-menu-item index="1" class="login" v-if="shareState.isAuthenticated == false">
+    <el-menu-item class="login" v-if="shareState.isAuthenticated == false">
       <i class="el-icon-user-solid"></i>
       <el-button type="text" @click="dialogFormVisible = true"
         >登录/注册</el-button
       >
     </el-menu-item>
     <!-- 已登录状态 -->
-    <el-menu-item class="login" v-on:click="toUserPage" v-if="shareState.isAuthenticated == true">
+    <el-menu-item
+      index="4"
+      class="login"
+      v-on:click="toUserPage"
+      v-if="shareState.isAuthenticated == true"
+    >
       <img src="../../assets/user-img/img1.png" width="35px" height="35px" />
-      {{username}}
+      {{ username }}
     </el-menu-item>
 
-    <el-menu-item index="2" class="parity" v-on:click="toSellerPage">
+    <el-menu-item index="5" v-if="shareState.authority >= 1" v-on:click="toManagePage">
+      <i class="el-icon-s-data"></i>
+      <el-link :underline="false">管理</el-link>
+    </el-menu-item>
+
+    <el-menu-item index="3" v-if="shareState.inManagePage == false" v-on:click="toSellerPage">
       <i class="el-icon-s-shop"></i>
       <el-link :underline="false">优惠商家</el-link>
     </el-menu-item>
 
-    <el-menu-item index="3" class="parity" v-on:click="toPriceComparisonPage">
+    <el-menu-item index="2" v-if="shareState.inManagePage == false" v-on:click="toPriceComparisonPage">
       <i class="el-icon-s-marketing"></i>
       <el-link :underline="false">比价</el-link>
     </el-menu-item>
 
-    <el-menu-item class="input">
+    <el-menu-item index="1" v-on:click="toHomePage">
+      <i class="el-icon-s-home"></i>
+      <el-link :underline="false">主页</el-link>
+    </el-menu-item>
+
+    <el-menu-item class="input" v-if="shareState.inManagePage == false">
       <el-input
         size="small"
         placeholder="搜索感兴趣的分享、用户"
@@ -73,14 +88,18 @@ import Register from "../Register";
 import Login from "../Login";
 import store from "../../store";
 export default {
+  props: {
+    activeIndex: {
+      type: String,
+      default: "1",
+    },
+  },
   data() {
     return {
-      activeIndex: "",
       input: "",
       dialogFormVisible: false,
       shareState: store.state,
-      username:"张三",
-
+      username: "张三",
     };
   },
   components: {
@@ -96,17 +115,22 @@ export default {
     },
     // 跳转方法
     toHomePage() {
-      this.$router.push('/');
+      store.setInManagePageFlase();
+      this.$router.push("/");
     },
     toUserPage() {
-      this.$router.push('/user');
+      this.$router.push("/user");
     },
     toSellerPage() {
-      this.$router.push('/seller');
+      this.$router.push("/seller");
     },
     toPriceComparisonPage() {
-      this.$router.push('/priceComparison');
+      this.$router.push("/priceComparison");
     },
+    toManagePage() {
+      store.setInManagePageTrue();
+      this.$router.push("/manage");
+    }
   },
 };
 </script>

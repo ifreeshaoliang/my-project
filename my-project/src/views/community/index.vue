@@ -1,5 +1,5 @@
 <template>
-  <BaseLayout>
+  <BaseLayout v-bind:inputIndex="navIndex">
     <template>
       <div>
         <el-button v-on:click="getUserList">获得用户列表</el-button>
@@ -35,6 +35,7 @@ export default {
     return {
       userInfo: "",
       shareState: store.state,
+      navIndex:"1"
     };
   },
   methods: {

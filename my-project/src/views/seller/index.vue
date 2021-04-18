@@ -1,5 +1,5 @@
 <template>
-  <BaseLayout>
+  <BaseLayout v-bind:inputIndex="navIndex">
     <template>
        销售商页面
     </template>
@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-
+      navIndex:'3'
     };
   },
 };

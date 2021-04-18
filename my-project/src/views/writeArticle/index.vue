@@ -3,13 +3,12 @@
     <template>
       <div class="main">
         <div class="editor">
-          <Editor v-bind="context"></Editor>
+          <div></div>
+          <Editor ref="editor-component"></Editor>
         </div>
         <div class="rightAside">
-          <!-- <button v-on:click="saveHtml">保存</button>
-          <div v-html="content" class="ql-editor">
-            {{ content }}
-          </div> -->
+          <button v-on:parentFunction="saveHtml" >保存</button>
+            {{ context }}
         </div>
       </div>
     </template>
@@ -30,13 +29,13 @@ export default {
   },
   data() {
     return {
-      context: "",
+      context: "123123",
     };
   },
   methods: {
-    saveHtml() {
-      alert(this.content);
-    },
+    saveHtml(content) {
+      this.context = content;
+    }
   },
 };
 </script>
