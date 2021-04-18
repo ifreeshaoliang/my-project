@@ -1,15 +1,14 @@
 <template>
   <BaseLayout v-bind:inputIndex="navIndex">
     <template>
-     比价页面
-
+      <div class="left">dsaf</div>
+      <div class="right">dasf</div>
     </template>
   </BaseLayout>
 </template>
 
 <script>
 import BaseLayout from "../../layout/base-layout";
-
 
 export default {
   name: "",
@@ -18,11 +17,21 @@ export default {
   },
   data() {
     return {
-      navIndex:'2'
+      navIndex: "2",
     };
   },
 };
 </script>
 
 <style scoped>
+.left {
+  float: left;
+  width: 68%;
+  background-color: aqua;
+}
+.right {
+  float: right;
+  width: 30%;
+  background-color: azure;
+}
 </style>

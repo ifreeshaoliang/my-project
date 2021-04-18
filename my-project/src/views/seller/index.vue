@@ -1,7 +1,8 @@
 <template>
   <BaseLayout v-bind:inputIndex="navIndex">
     <template>
-       销售商页面
+       <div class="left">sadf</div>
+      <div class="right">dasf</div>
     </template>
   </BaseLayout>
 </template>
@@ -24,4 +25,14 @@ export default {
 </script>
 
 <style scoped>
+.left {
+  float: left;
+  width: 68%;
+  background-color: aqua;
+}
+.right {
+  float: right;
+  width: 30%;
+  background-color: azure;
+}
 </style>

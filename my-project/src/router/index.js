@@ -37,7 +37,7 @@ export default new Router({
         },
         //其他页面
         {
-            path: '/writeAticle',
+            path: '/writeArticle',
             component: () => import('../views/writeArticle')
         },
         {
