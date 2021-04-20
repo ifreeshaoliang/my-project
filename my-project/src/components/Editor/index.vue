@@ -89,4 +89,14 @@ export default {
 </script>
 
 <style scoped>
+.ql-container {
+  outline: none;
+  border: none;
+  width: 100%;
+}
+.ql-snow {
+  outline: none;
+  border: none;
+  width: 100%;
+}
 </style>
