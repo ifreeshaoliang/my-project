@@ -2,15 +2,16 @@
   <div class="container">
     <el-container>
       <!-- header头部 -->
-      <el-header>
+      <el-header class="navHeader">
         <NavBar v-bind:activeIndex="inputIndex"></NavBar>
       </el-header>
       <!-- 主体 -->
-      <el-main v-bind:style="{minHeight: Height + 'px'}">
+      <el-main class="navMain" v-bind:style="{minHeight: Height + 'px'}">
+        <div class="blank"></div>
         <slot></slot>
       </el-main>
       <!-- footer页脚 -->
-      <el-footer>
+      <el-footer class="navFooter">
         <Footer></Footer>
       </el-footer>
     </el-container>
@@ -39,26 +40,31 @@ export default {
   },
   mounted(){
     //动态设置内容高度 让footer始终居底   header+footer的高度是128
-    this.Height = document.documentElement.clientHeight - 128;  
+    this.Height = document.documentElement.clientHeight - 70;  
 　　//监听浏览器窗口变化　
     window.onresize = ()=> {this.Height = document.documentElement.clientHeight -100}
   }
 };
 </script>
 
-<style>
-.el-header {
+<style  scoped>
+.navHeader {
   margin-left: 12%;
   width: 76%;
+  top: 0px;
+  position: fixed;
 }
-.el-main {
+.navMain {
   margin-left: 12%;
   width: 76%;
   height: 100%;
 }
-.el-footer {
+.navFooter {
   height: 200px;
   background-color: #f7fbfd;
   flex: 0;
+}
+.blank {
+  height: 60px;
 }
 </style>

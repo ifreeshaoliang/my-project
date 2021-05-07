@@ -12,11 +12,11 @@
     </quill-editor>
     <button v-on:click="saveHtml">保存</button>
     <!-- 从数据库读取展示 -->
-    <div class="ql-container ql-snow">
+    <!-- <div class="ql-container ql-snow">
       <div class="ql-editor">
         <div v-html="content"></div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -25,6 +25,7 @@ import { quillEditor } from "vue-quill-editor"; //调用编辑器
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
+import storage from "../../utils/storage";
 export default {
   components: {
     quillEditor,
@@ -71,6 +72,7 @@ export default {
     },
     saveHtml() {
       alert(this.content);
+      storage.set("article", this.content);
     },
     getContent() {
       

@@ -1,39 +1,67 @@
 <template>
   <div>
     <div class="header">
-      <div class="author" style="font-size: 14px">
+      <div
+        class="author"
+        style="font-size: 14px"
+      >
         <el-link type="info"> 作者：{{ article.author }} </el-link>
       </div>
+
       <div class="blank"></div>
+
       <div class="title">
         <b>{{ article.title }}</b>
       </div>
     </div>
+
     <div class="description"> {{ article.description }} </div>
+
     <div>
-      <el-button type="text" v-if="visible == false" v-on:click="changeVisible"
-        >展开</el-button
-      >
+      <el-button
+        type="text"
+        v-if="visible == false"
+        v-on:click="changeVisible"
+        @click="getContent"
+      >展开</el-button>
     </div>
+
     <div class="blank"></div>
     <!-- 内容 -->
-    <div class="hideDiv" v-if="visible == true">
+    <div
+      class="hideDiv"
+      v-if="visible == true"
+    >
       <div class="ql-container ql-snow">
-        <div class="ql-editor" v-html="article.content"></div>
+        <div
+          class="ql-editor"
+          v-html="content"
+        ></div>
+      </div>
+      <div class="blank"></div>
+      <div class="commentDiv">
+        <Comment></Comment>
       </div>
     </div>
 
     <!-- 收起 -->
     <div class="blank">
-      <el-button type="text" v-if="visible == true" v-on:click="changeVisible"
-        >收起</el-button
-      >
+      <el-button
+        type="text"
+        v-if="visible == true"
+        v-on:click="changeVisible"
+      >收起</el-button>
     </div>
   </div>
 </template>
 
 <script>
+import Comment from "../../components/Comment";
+import storage from "../../utils/storage";
 export default {
+  components: {
+    Comment,
+  },
   props: {
     article: {
       title: "男生穿搭",
@@ -49,6 +77,7 @@ export default {
   data() {
     return {
       visible: false,
+      content: "",
     };
   },
   methods: {
@@ -56,20 +85,23 @@ export default {
       if (this.visible == true) this.visible = false;
       else this.visible = true;
     },
+    getContent() {
+      this.content = storage.get("article");
+    },
   },
 };
 </script>
 
 <style scoped>
 .description {
-    font-size: 14px;
-    color: rgb(143, 143, 143);
+  font-size: 14px;
+  color: rgb(143, 143, 143);
 }
 .el-button {
   float: right;
 }
 .blank {
-  height: 10px;
+  height: 20px;
 }
 .ql-container {
   outline: none;
@@ -80,7 +112,6 @@ export default {
   border: none;
 }
 .ql-editor {
-    padding: 0px 0px;
+  padding: 0px 0px;
 }
-
 </style>

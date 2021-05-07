@@ -47,7 +47,7 @@
       <el-link :underline="false">主页</el-link>
     </el-menu-item>
 
-    <el-menu-item class="input" v-if="shareState.inManagePage == false">
+    <el-menu-item class="input" v-if="shareState.inManagePage == false && activeIndex == '1'">
       <el-input
         size="small"
         placeholder="搜索感兴趣的分享、用户"
@@ -68,6 +68,7 @@
     <el-dialog
       style="text-align: center"
       :visible.sync="dialogFormVisible"
+      :append-to-body="true"
       width="450px"
     >
       <el-tabs style="height: 300px">
