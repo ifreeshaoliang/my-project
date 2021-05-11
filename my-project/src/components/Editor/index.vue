@@ -10,7 +10,8 @@
       @change="onEditorChange($event)"
     >
     </quill-editor>
-    <button v-on:click="saveHtml">保存</button>
+
+    <!-- <button v-on:click="saveHtml">保存</button> -->
     <!-- 从数据库读取展示 -->
     <!-- <div class="ql-container ql-snow">
       <div class="ql-editor">
@@ -35,7 +36,7 @@ export default {
       content: "",
       str: "",
       editorOption: {
-        placeholder: "",
+        placeholder: "请编写帖子内容",
         modules: {
           toolbar: {
             container: [
@@ -54,15 +55,16 @@ export default {
   },
   methods: {
     onEditorReady(editor) {
+      this.$emit('parentFunction', this.content)
       // 准备编辑器
     },
     onEditorBlur() {
       this.$emit('parentFunction', this.content)
     }, // 失去焦点事件
     onEditorFocus() {
-
     }, // 获得焦点事件
     onEditorChange() {
+      this.$emit('parentFunction', this.content)
     }, // 内容改变事件
     // 转码
     escapeStringHTML(str) {
@@ -74,9 +76,6 @@ export default {
       alert(this.content);
       storage.set("article", this.content);
     },
-    getContent() {
-      
-    }
   },
   computed: {
     editor() {

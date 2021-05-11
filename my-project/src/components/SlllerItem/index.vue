@@ -7,7 +7,7 @@
     ></el-image>
 <!-- 商店名称 -->
     <div class="sellerInfo">
-      <el-link :underline="false">{{seller.name }}</el-link>
+      <el-link :underline="false" :href="seller.url" >{{seller.name }}</el-link>
     </div>
 <!-- 评分 -->
     <div class="sellerDescription">
@@ -32,6 +32,7 @@ export default {
   props: {
     seller: {
       name: "",
+      url:"",
       imgUrl: "",
       scop1:"",
       scop2:"",
@@ -42,6 +43,8 @@ export default {
     return {
     };
   },
+  methods : {
+  }
 };
 </script>
 

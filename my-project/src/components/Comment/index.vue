@@ -38,6 +38,8 @@
           <CommentItem :comment="comment"></CommentItem>
         </div>
 
+        <div class="blank"></div>
+
         <!-- 可以输入的留言区 -->
         <el-input v-model="input" size=small placeholder="发表评论"></el-input>
         <el-button type="primary" plain size=small>发布</el-button>
@@ -50,6 +52,9 @@
 
 <script>
 import CommentItem from "../../components/Comment/item";
+import store from "../../store";
+import { Message } from "element-ui";
+
 export default {
   name: "",
   components: {
@@ -72,7 +77,6 @@ export default {
           content: "我觉得一般 都是很常见的风格啊 清新 休闲 小复古 盐系。而且除了知道微胖博主，别的都是只能瘦子穿出来好看。很多颜色和款型穿起来也会有点老气。如果作为普通路人穿搭，还是不错的。如果作为让人眼前一亮宝藏搭配，真的算不上。",
           likes:23,
         },
-        
         {
           userName: "小王同学",
           userImg: "https://pic4.zhimg.com/v2-0859cccf0de9325b57a9d1713cf7d5fe_1440w.jpg?source=172ae18b",
@@ -82,11 +86,26 @@ export default {
       ],
     };
   },
+  methods: {
+    show() {
+      if (store.state.isAuthenticated == true) {
+        
+      } else {
+        Message({
+          message: "请先登录，谢谢",
+          type: "warning",
+        });
+      }
+    }
+  }
 };
 </script>
 
 <style scoped>
 .el-input {
   width: 84%;
+}
+.blank {
+  height: 10px;
 }
 </style>

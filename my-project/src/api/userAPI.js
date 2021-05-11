@@ -8,13 +8,16 @@ let request = "/user/"
 
 export default {
     getUsersInfo(params) {
-        return http.get(request, params);
+        return http.post(request+'getAllUserInfo', params);
+    },
+    getUserByAccount(params) {
+        return http.get(request+'getUser', params);
     },
     login(params) {
         return http.post(request+'login', params);
     },
     register(params) {
-        return http.post(request+'register', params);
+        return http.get(request+'register', params);
     },
 
 }

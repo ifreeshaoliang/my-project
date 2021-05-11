@@ -5,9 +5,11 @@ var store = ({
     // 存储token
     // token: storage.get('token') ? storage.get('token') : '',
     token: "",
+    userID:"",
     userAccount: "",
-    isAuthenticated: true,
-    authority: 1,
+    userName: "",
+    isAuthenticated: false,
+    authority: 0,
     inManagePage: false,
   },
   // 修改token，并将token存入localStorage
@@ -22,19 +24,26 @@ var store = ({
     console.log('store、localstorage删除token成功！');
   },
   //将用户账户存入localStorage
-  setUserInfo(userAccount) {
+  setUserID(userID) {
+    this.state.userID = userID;
+    storage.set('userID', userID);
+  },
+  setUserAccount(userAccount) {
     this.state.userAccount = userAccount;
     storage.set('userAccount', userAccount);
   },
-  //改变登录状态
-  changeAuthentication() {
-    if (this.state.isAuthenticated)
-      this.state.isAuthenticated = false;
-    else
-      this.state.isAuthenticated = true;
+  setUserName(userName) {
+    this.state.userName = userName;
+    storage.set('userName', userName);
   },
+  //改变登录状态
   setAuthenticationFalse() {
       this.state.isAuthenticated = false;
+      this.state.authority = 0;
+      this.state.userName = '';
+      this.state.userAccount = '';
+      storage.set('userAccount', '');
+      storage.set('userName', '');
   },
   setAuthenticationTrue() {
     this.state.isAuthenticated = true;
@@ -43,7 +52,6 @@ var store = ({
   setAuthority(newAuthority) {
     this.state.authority = newAuthority;
     storage.set('authority', newAuthority);
-    console.log('store、localstorage保存authority成功！');
   },
   //改变在管理页时的状态
   setInManagePageFlase() {

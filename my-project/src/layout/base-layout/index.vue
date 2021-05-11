@@ -53,6 +53,7 @@ export default {
   width: 76%;
   top: 0px;
   position: fixed;
+  z-index:99;
 }
 .navMain {
   margin-left: 12%;

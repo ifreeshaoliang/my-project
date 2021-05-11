@@ -2,40 +2,48 @@
   <BaseLayout v-bind:inputIndex="navIndex">
     <template>
       <div>
-        <el-col :span="6">
-          <!-- <el-card shadow="never"> -->
-          <div class="img">
-            <img
-              src="../../assets/user-img/img1.png"
-              width="100px"
-              height="100px"
-            />
-          </div>
-          <div class="info">
-            <table style="width: 200px">
-              <tr>
-                <td>{{ user.userName }}</td>
-              </tr>
-              <tr>
-                <td><br/></td>
-              </tr>
-              <tr>
-                <td>要大笑，要做梦，要与众不同。</td>
-              </tr>
-              <tr>
-                <td><br/></td>
-              </tr>
-            </table>
-          </div>
-          <el-button class="changeInfo">编辑资料</el-button>
-          
-          <!-- </el-card> -->
-        </el-col>
         <el-row>
+          <el-col :span="6">
+            <!-- <el-card shadow="never"> -->
+            <div class="img">
+              <img
+                src="../../assets/user-img/img1.png"
+                width="100px"
+                height="100px"
+              />
+            </div>
+            <div class="info">
+              <table style="width: 200px">
+                <tr>
+                  <td>{{ user.userName }}</td>
+                </tr>
+                <tr>
+                  <td><br /></td>
+                </tr>
+                <tr>
+                  <td>{{ user.description }}</td>
+                </tr>
+                <tr>
+                  <td><br /></td>
+                </tr>
+              </table>
+            </div>
+            <el-button class="changeInfo" type="primary" plain>编辑资料</el-button>
+            
+            <!-- </el-card> -->
+          </el-col>
+
           <el-col :span="16">
             <el-card shadow="never">
-              <el-tabs v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane label="浏览过帖子" name="first">
+              <el-tabs
+                v-model="activeName"
+                @tab-click="handleClick"
+              >
+                <el-tab-pane
+                  label="浏览过帖子"
+                  name="1"
+                >
+
                   <div
                     class="leftDiv"
                     :key="'userArti' + index"
@@ -43,18 +51,28 @@
                   >
                     <Article :article="art"></Article>
                   </div>
+
                 </el-tab-pane>
-                <el-tab-pane label="已发帖子" name="second"
-                  >配置管理</el-tab-pane
+                <el-tab-pane
+                  label="已发帖子"
+                  name="2"
                 >
-                <el-tab-pane label="评论" name="thrid">配置管理</el-tab-pane>
+                  帖子
+                </el-tab-pane>
+                <el-tab-pane
+                  label="评论"
+                  name="3"
+                >评论</el-tab-pane>
               </el-tabs>
             </el-card>
           </el-col>
           <el-col :span="2">
-            <el-button type="primary" plain class="logout" @click="logout"
-              >注销登录</el-button
-            >
+            <el-button
+              type="primary"
+              plain
+              class="logout"
+              @click="logout"
+            >注销登录</el-button>
           </el-col>
         </el-row>
       </div>
@@ -69,6 +87,7 @@
 import BaseLayout from "../../layout/base-layout";
 import store from "../../store";
 import Article from "../../components/Article";
+import storage from "../../utils/storage";
 
 export default {
   name: "",
@@ -79,9 +98,10 @@ export default {
   data() {
     return {
       navIndex: "4",
+      activeName: "1",
       user: {
-        userName: "张三",
-        userAccount: "zhangshan132",
+        userName: storage.get("userName"),
+        description: "要大笑，要做梦，要与众不同。",
         sex: "男",
       },
       articles: [
@@ -139,7 +159,8 @@ export default {
   },
   methods: {
     logout() {
-      store.changeAuthentication();
+      store.setAuthenticationFalse();
+      this.$router.push("/");
     },
   },
 };

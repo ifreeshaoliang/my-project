@@ -88,6 +88,8 @@
 import Register from "../Register";
 import Login from "../Login";
 import store from "../../store";
+import storage from "../../utils/storage";
+
 export default {
   props: {
     activeIndex: {
@@ -100,7 +102,7 @@ export default {
       input: "",
       dialogFormVisible: false,
       shareState: store.state,
-      username: "张三",
+      username: storage.get("userName"),
     };
   },
   components: {

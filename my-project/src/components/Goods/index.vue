@@ -7,7 +7,7 @@
     ></el-image>
     <div class="goodsInfo">
         <div class="goodsName">
-            <el-link :underline="false">{{goods.goodsName}}</el-link>
+            <el-link :underline="false" :href="goods.url">{{goods.goodsName}}</el-link>
         </div>
         <div class="goodsPrice">
             {{goods.goodsPrice}}
@@ -23,6 +23,7 @@ export default {
     goods: {
       goodsName: "",
       goodsPrice: "",
+      url:"",
       imgUrl:"",
     }
   },

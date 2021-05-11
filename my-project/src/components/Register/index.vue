@@ -8,11 +8,20 @@
     label-width="70px"
     class="demo-ruleForm"
   >
-    <el-form-item label="账户" prop="account">
-      <el-input v-model.number="ruleForm.account" placeholder="账户"></el-input>
+    <el-form-item
+      label="账户"
+      prop="account"
+    >
+      <el-input
+        v-model.number="ruleForm.account"
+        placeholder="账户"
+      ></el-input>
     </el-form-item>
 
-    <el-form-item label="密码" prop="pass">
+    <el-form-item
+      label="密码"
+      prop="pass"
+    >
       <el-input
         type="password"
         v-model="ruleForm.pass"
@@ -20,7 +29,10 @@
         placeholder="密码"
       ></el-input>
     </el-form-item>
-    <el-form-item label="确认密码" prop="checkPass">
+    <el-form-item
+      label="确认密码"
+      prop="checkPass"
+    >
       <el-input
         type="password"
         v-model="ruleForm.checkPass"
@@ -30,12 +42,25 @@
     </el-form-item>
 
     <el-form-item>
-      <el-button type="primary" size=small @click="submitForm('ruleForm')">提交</el-button>
-      <el-button size=small @click="resetForm('ruleForm')">重置</el-button>
+      <el-button
+        type="primary"
+        size=small
+        @click="submitForm('ruleForm')"
+      >提交</el-button>
+      <el-button
+        size=small
+        @click="resetForm('ruleForm')"
+      >重置</el-button>
     </el-form-item>
   </el-form>
 </template>
+
+
 <script>
+import userAPI from "../../api/userAPI";
+import { Message } from "element-ui";
+import store from "../../store";
+
 export default {
   data() {
     var checkAccount = (rule, value, callback) => {
@@ -80,7 +105,32 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          //连接后台处理注册
+          userAPI.register(this.ruleForm).then((res) => {
+            if (res.status == 200) {
+              //弹出消息
+              Message({
+                message: res.data.message,
+                type: "success",
+              });
+              //处理注册成功情况
+              store.setUserAccount(res.data.data.userAccount);
+              store.setUserName(res.data.data.userName);
+              store.setAuthority(res.data.data.authority);
+              store.setAuthenticationTrue();
+              store.setUserID(res.data.data.userID)
+
+              //跳转到首页
+              this.$router.push("/");
+            } else {
+              Message({
+                message: res.data.message,
+                type: "error",
+              });
+            }
+            console.log(res);
+          });
+
           this.resetForm(formName);
         } else {
           console.log("error submit!!");
@@ -91,6 +141,6 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-  }
+  },
 };
 </script>

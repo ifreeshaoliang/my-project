@@ -44,7 +44,10 @@
 </template>
 
 <script>
-import userAPI from '../../api/userAPI';
+import { Message } from "element-ui";
+import userAPI from "../../api/userAPI";
+import store from "../../store";
+
 export default {
   name: "",
   data() {
@@ -56,12 +59,34 @@ export default {
     };
   },
   methods: {
-      login(user) {
-          userAPI.login(user).then(res=>{
-              console(res)
-          })
-          alert("sdfa")
-      },
+    login() {
+      userAPI.login(this.user).then((res) => {
+        if (res.status == 200) {
+          //弹出消息
+          Message({
+            message: res.data.message,
+            type: "success",
+          });
+          //处理登录成功情况
+          store.setUserAccount(res.data.data.userAccount)
+          store.setUserName(res.data.data.userName)
+          store.setAuthority(res.data.data.authority)
+          store.setAuthenticationTrue()
+          store.setUserID(res.data.data.userID)
+
+          
+          //跳转到首页
+          this.$router.push("/");
+
+        } else {
+          Message({
+            message: res.data.message,
+            type: "error",
+          });
+        }
+        console.log(res);
+      });
+    },
   },
 };
 </script>
